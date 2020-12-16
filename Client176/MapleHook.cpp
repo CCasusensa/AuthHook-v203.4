@@ -6,15 +6,6 @@
 
 std::map<int, std::string>	g_mStringPool;
 
-extern Application app;
-
-
-typedef void(__cdecl* set_stage_t)(void* pThis, void* pParam);
-auto set_stage = reinterpret_cast<set_stage_t>(0x01AA4610);
-
-typedef int(__cdecl* ZtlSecureFuse_int_t)(int* at, unsigned int uCS);
-auto ZtlSecureFuse_int = reinterpret_cast<ZtlSecureFuse_int_t>(0x00872530);
-
 typedef ZXString<char>* (__fastcall* StringPool__GetString_t)(void* ecx, void* edx, ZXString<char>* result, unsigned int nIdx, char formal);
 auto StringPool__GetString = reinterpret_cast<StringPool__GetString_t>(0x00C4C980);
 
@@ -52,42 +43,11 @@ void InitStringPool()
 
 
 
-void __cdecl SetStage_Hook(void* pStage, void* pParam)
-{	
-	set_stage(pStage, pParam);
-
-	auto pData = CWvsContext::GetInstance()->GetCharacterData();
-
-	if (pData)
-	{
-		auto szName = pData->characterStat.sCharacterName;
-		auto nLevel = ZtlSecureFuse_int(pData->characterStat._ZtlSecureTear_nLevel, pData->characterStat._ZtlSecureTear_nLevel_CS);
-
-		DiscordActivity activity;
-		memset(&activity, 0, sizeof(activity));
-
-		activity.type = DiscordActivityType_Playing;
-		activity.timestamps.start = time(0);
-
-		sprintf_s(activity.assets.large_text, "MapleStory");
-		sprintf_s(activity.assets.large_image, "owo");
-
-		sprintf_s(activity.state, "%s - Training", szName);
-		sprintf_s(activity.details, "Level %d", nLevel);
-
-		Log("Posting Update: %d %s",nLevel,szName);
-		app.activities->update_activity(app.activities, &activity, &app, UpdateActivityCallback);
-	}
-}
-
-
 void FuckMaple()
 {
 	PatchRetZero(0x029EC300); //NGS Bypass
 
 	InitStringPool();
 	Hook_StringPool__GetString(true);
-
-	SetHook(TRUE, reinterpret_cast<void**>(&set_stage), SetStage_Hook);
 
 }
