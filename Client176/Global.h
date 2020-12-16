@@ -26,7 +26,7 @@ void FuckMaple();
 bool HookNMCO();
 bool HookWinApi();
 bool HookSockApi();
-bool HookCRC();
+//bool HookCRC();
 
 //---------------------------------------------------------------------------------------------
 
