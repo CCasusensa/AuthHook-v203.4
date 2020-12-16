@@ -3,13 +3,9 @@
 #include <stdio.h>
 #include <time.h>
 #include "MapleType.h"
-#include "discord_game_sdk.h"
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "detours.lib")
-#pragma comment(lib, "discord_game_sdk.dll.lib")
-
-#define DISCORD_REQUIRE(x) assert(x == DiscordResult_Ok)
 
 //---------------------------------------------------------------------------------------------
 
@@ -22,7 +18,6 @@
 #define OPT_PORT_LOW		8484
 #define OPT_PORT_HIGH		8989
 
-#define CLIENT_ID	0	//Discord
 
 //---------------------------------------------------------------------------------------------
 
@@ -44,19 +39,3 @@ void PatchNop(DWORD dwAddress, DWORD dwCount);
 DWORD GetFuncAddress(LPCSTR lpModule, LPCSTR lpFunc);
 
 BOOL SetHook(BOOL bInstall, PVOID* ppvTarget, PVOID pvDetour);
-
-//---------------------------------------------------------------------------------------------
-
-struct Application
-{
-    struct IDiscordCore* core;
-    struct IDiscordUserManager* users;
-    struct IDiscordAchievementManager* achievements;
-    struct IDiscordActivityManager* activities;
-    struct IDiscordRelationshipManager* relationships;
-    struct IDiscordApplicationManager* application;
-    struct IDiscordLobbyManager* lobbies;
-    DiscordUserId user_id;
-};
-
-void UpdateActivityCallback(void* data, EDiscordResult result);
