@@ -9,17 +9,9 @@ bool Hook_CreateWindowExA(bool bEnable)
 	{
 		auto lpLocalWndName = lpWindowName;
 
-		if (!strcmp(lpClassName, "StartUpDlgClass"))
+		if (!strcmp(lpClassName, "MapleStoryClass"))
 		{
-			return NULL;
-		}
-		else if (!strcmp(lpClassName, "NexonADBallon"))
-		{
-			return NULL;
-		}
-		else if (!strcmp(lpClassName, "MapleStoryClass"))
-		{
-			HookCRC();
+			//HookCRC();
 			FuckMaple();
 			lpLocalWndName = OPT_APPNAME;
 		}
@@ -86,8 +78,8 @@ bool HookWinApi()
 
 	bResult &= Hook_CreateWindowExA(true);
 	bResult &= Hook_CreateMutexA(true);
-	bResult &= Hook_WriteStageLogA(true);
-	bResult &= Hook_WriteErrorLogA(true);
+	//bResult &= Hook_WriteStageLogA(true);
+	//bResult &= Hook_WriteErrorLogA(true);
 
 	return bResult;
 }
