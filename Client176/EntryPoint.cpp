@@ -18,16 +18,6 @@ DWORD WINAPI MainProc(PVOID)
 	bInit &= HookSockApi();
 	bInit &= HookWinApi();
 	bInit &= HookNMCO();
-
-	if (bInit)
-	{
-     //   DiscordLoop();
-	}
-	else
-	{
-        Log("[AuthHook] Initialization Failed!!!");
-	}
-
 	return 0;
 }
 
