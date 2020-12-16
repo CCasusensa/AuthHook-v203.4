@@ -58,7 +58,7 @@ DWORD WINAPI MainProc(PVOID)
 
 	if (bInit)
 	{
-        DiscordLoop();
+     //   DiscordLoop();
 	}
 	else
 	{
