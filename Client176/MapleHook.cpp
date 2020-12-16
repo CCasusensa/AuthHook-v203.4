@@ -47,6 +47,8 @@ void FuckMaple()
 {
 	PatchRetZero(0x029EC300); //NGS Bypass
 
+	PatchRetZero(0x029FA5D0); // CRC Bypass
+
 	InitStringPool();
 	Hook_StringPool__GetString(true);
 
